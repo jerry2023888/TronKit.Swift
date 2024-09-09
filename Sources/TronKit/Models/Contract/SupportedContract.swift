@@ -1,12 +1,12 @@
 import SwiftProtobuf
 
 protocol SupportedContract: Contract {
-    var protoMessage: SwiftProtobuf.Message { get }
+    var protoMessage: any SwiftProtobuf.Message { get }
     var protoContractType: Protocol_Transaction.Contract.ContractType { get }
 }
 
 extension TransferContract: SupportedContract {
-    var protoMessage: Message {
+    var protoMessage: any SwiftProtobuf.Message {
         var message = Protocol_TransferContract()
         message.ownerAddress = ownerAddress.raw
         message.toAddress = toAddress.raw
@@ -21,7 +21,7 @@ extension TransferContract: SupportedContract {
 }
 
 extension TriggerSmartContract: SupportedContract {
-    var protoMessage: Message {
+    var protoMessage: any SwiftProtobuf.Message {
         var message = Protocol_TriggerSmartContract()
         message.ownerAddress = ownerAddress.raw
         message.contractAddress = contractAddress.raw
